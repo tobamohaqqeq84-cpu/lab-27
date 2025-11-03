@@ -178,5 +178,65 @@ bool search_villager(villagerMap& db, const string& name){
     return true;
 }
 bool add_villager(villagerMap& db, const string& name, int friendship, const string& species, const string& catchphrase){
-    if(friendship <)
+    if(friendship <MIN_FRIEND || friendship > MAX_FRIEND) return false;
+    if (db.find(name) != db.end()) return false;
+    db.insert(make_pair(name, villagerInfo(friendship,species,catchphrase)));)));
+    return true;
+}
+bool delete_villager(villagerMap& db, const string& name){
+    auto it = db.find(name);
+    if (it == db.end()) return false;
+    db.erase(it);
+    return true;
+}
+string read_line(const string & prompt){
+    string s;
+    cout << prompt;
+    if (cin.peak()=='\n') cin.ignore();
+    getline(cin,s);
+    return s;
+}
+int read_int(const string & prompt){
+  while (true){
+      cout << prompt;
+      int x;
+      if (cin >> x) return x;
+      cout << "Please enter an integer.\n";
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(),'\n');
+  }
+}
+int menu_3(){
+    cout << "1. Increase friendship\n";
+    cout << "2. Decrease friendship\n";
+    cout << "3. Search for villager\n";
+    cout << "4. Quit\n";
+    cout << "Enter choice: ";
+
+    int c;
+    if (!(cin >> c)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        return 0;
+    }
+    return c;
+}
+
+int menu_4(){
+    cout << "1. Add villager\n";
+    cout << "2. Delete villager\n";
+    cout << "3. Increase friendship\n";
+    cout << "4. Decrease friendship\n";
+    cout << "5. Search for villager\n";
+    cout << "6. Quit\n";
+    cout << "Enter choice: ";
+
+    int c;
+
+    if (!(cin >> c)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        return 0;
+    }
+    return c;
 }
