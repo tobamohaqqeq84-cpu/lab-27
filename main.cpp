@@ -34,10 +34,10 @@ int menu_4();
 int main (){
     villagerMap db;
     db["Drago"] = villagerInfo(5,  "Alligator", "Snap to It!");
-    db["Kyle"]  = villagerInfo(10, "wolf", "Hubba hubba!");
+    db["Kyle"]  = villagerInfo(10, "Wolf", "Hubba hubba!");
     db["Raymond"] = villagerInfo(1, "Cat", "Nice fit");
 
-    cout << "Initial villlager details:\n";
+    cout << "Initial villager details:\n";
     print_all(db);
 
     bool run_m3_menu = false;
@@ -46,22 +46,25 @@ int main (){
         while(true){
             int choice = menu_3();
             if (choice == 4) break;
+            
             if (choice == 1){
-        string name = read_line("villager name: ");
+        string name = read_line("Villager name: ");
             if (inc_friend(db,name))
                 cout << name << "friendship increased. \n";
             else
                  cout << "villager not found.\n";
                  cout << "villager details:\n";
                     print_all(db);
-            }else if (choice == 2){
+            }
+            else if (choice == 2){
         string name = read_line("villager name: ");
             if (dec_friend(db,name))
                     cout << name << "friendship decreased. \n";
             else
                     cout << "villager not found.\n";
                     cout << "villager details:\n";
-                        print_all(db);}
+                        print_all(db);
+            }
             else if (choice == 3) {
                 string name = read_line("villager name: ");
                 if (!search_villager(db,name))
@@ -88,7 +91,8 @@ int main (){
             else
                 cout << "Could not add. \n";
                 cout << "villager details:\n";
-                print_all(db);}
+                print_all(db);
+            }
         
             else if (choice == 2){
                 string name = read_line("villager name: ");
@@ -97,7 +101,8 @@ int main (){
                 else
                     cout << "villager not found. \n";
                     cout << "villager details:\n";
-                    print_all(db);}
+                    print_all(db);
+            }
                 
             else if (choice == 3){
                 string name = read_line("villager name: ");
@@ -106,7 +111,8 @@ int main (){
                 else
                     cout << "villager not found. \n";
                     cout << "villager details:\n";
-                    print_all(db);}
+                    print_all(db);
+            }
                 
             else if (choice == 4){
                 string name = read_line("villager name: ");
@@ -115,14 +121,16 @@ int main (){
                 else
                     cout << "villager not found. \n";
                     cout << "villager details:\n";
-                    print_all(db);}
+                    print_all(db);
+            }
                 
             else if (choice == 5){
                 string name = read_line("villager name: ");
                 if (!search_villager(db,name))
                     cout << "villager not found. \n";
                     cout << "villager details:\n";
-                    print_all(db);}
+                    print_all(db);
+            }
                 else{
                     cout << "Please enter 1-6. \n";
             }
@@ -140,12 +148,14 @@ void print_all(const villagerMap& db){
         const string& name = it -> first;
         const villagerInfo& info = it -> second;
         int f = get<0>(info);
-        const string sp = get<1>(info);
-        const string cp = get<2>(info);
+        const string& sp = get<1>(info);
+        const string& cp = get<2>(info);
         cout << name << " [" << f << ", " << sp << ", " << cp << "]\n";
     }
 }
-villagerMap::iterator find_villager(villagerMap& db, const string& name);
+villagerMap::iterator find_villager(villagerMap& db, const string& name){
+    return db.find(name);
+}
 
 int clamp_friend(int v){
     if (v < MIN_FRIEND) return MIN_FRIEND;
@@ -180,7 +190,7 @@ bool search_villager(villagerMap& db, const string& name){
 bool add_villager(villagerMap& db, const string& name, int friendship, const string& species, const string& catchphrase){
     if(friendship <MIN_FRIEND || friendship > MAX_FRIEND) return false;
     if (db.find(name) != db.end()) return false;
-    db.insert(make_pair(name, villagerInfo(friendship,species,catchphrase)));)));
+    db.insert(make_pair(name, villagerInfo(friendship,species,catchphrase)));
     return true;
 }
 bool delete_villager(villagerMap& db, const string& name){
@@ -192,7 +202,7 @@ bool delete_villager(villagerMap& db, const string& name){
 string read_line(const string & prompt){
     string s;
     cout << prompt;
-    if (cin.peak()=='\n') cin.ignore();
+    if (cin.peek()=='\n') cin.ignore();
     getline(cin,s);
     return s;
 }
