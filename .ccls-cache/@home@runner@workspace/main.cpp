@@ -123,7 +123,7 @@ int main (){
                     cout << "villager not found. \n";
                     cout << "villager details:\n";
                     print_all(db);}
-                else
+                else{
                     cout << "Please enter 1-6. \n";
             }
         
@@ -133,4 +133,50 @@ int main (){
     
     }
     return 0;
+}
+
+void print_all(const villagerMap& db){
+    for (auto it = db.begin(); it != db.end(); ++it){
+        const string& name = it -> first;
+        const villagerInfo& info = it -> second;
+        int f = get<0>(info);
+        const string sp = get<1>(info);
+        const string cp = get<2>(info);
+        cout << name << " [" << f << ", " << sp << ", " << cp << "]\n";
+    }
+}
+villagerMap::iterator find_villager(villagerMap& db, const string& name);
+
+int clamp_friend(int v){
+    if (v < MIN_FRIEND) return MIN_FRIEND;
+    if (v > MAX_FRIEND) return MAX_FRIEND;
+    return v;
+}
+bool inc_friend(villagerMap& db, const string& name){
+    auto it = find_villager(db,name);
+    if (it == db.end()) return false;
+    villagerInfo& info = it -> second;
+    int f = get<0>(info);
+    f = clamp_friend(f + 1);
+    info = villagerInfo(f,get<1>(info),get<2>(info));
+    return true;
+}
+bool dec_friend(villagerMap& db, const string& name){
+    auto it = find_villager(db,name);
+    if (it == db.end()) return false;
+    villagerInfo& info = it -> second;
+    int f = get<0>(info);
+    f = clamp_friend(f - 1);
+    info = villagerInfo(f,get<1>(info),get<2>(info));
+    return true;
+}
+bool search_villager(villagerMap& db, const string& name){
+    auto it = find_villager(db,name);
+    if (it == db.end()) return false;
+    const villagerInfo& info = it -> second;
+    cout <<"Found: " << name << " [" << get<0>(info) << ", " << get<1>(info) << ", " << get<2>(info) << "]\n"; 
+    return true;
+}
+bool add_villager(villagerMap& db, const string& name, int friendship, const string& species, const string& catchphrase){
+    if(friendship <)
 }
