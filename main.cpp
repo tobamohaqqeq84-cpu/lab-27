@@ -47,8 +47,32 @@ int main (){
             int choice = menu_3();
             if (choice == 4) break;
             if (choice == 1){
-               string name = read_line("villager name: ");
-               if (inc_friend)
+        string name = read_line("villager name: ");
+            if (inc_friend(db,name))
+                cout << name << "friendship increased. \n";
+            else
+                 cout << "villager not found.\n";
+                 cout << "villager details:\n";
+                    print_all(db);
+            }else if (choice == 2){
+        string name = read_line("villager name: ");
+            if (dec_friend(db,name))
+                    cout << name << "friendship decreased. \n";
+            else
+                    cout << "villager not found.\n";
+                    cout << "villager details:\n";
+                        print_all(db);}
+            else if (choice == 3) {
+                string name = read_line("villager name: ");
+                if (!search_villager(db,name))
+                    cout << "villager not found. \n";
+                    cout << "villager details.\n";
+                    print_all(db);}
+            else{
+                cout << "Please enter 1-4. \n";}
+            
+
+
              }
         }
     }
