@@ -71,10 +71,66 @@ int main (){
             else{
                 cout << "Please enter 1-4. \n";}
             
-
-
              }
+        
+        }else {
+        while (true){
+            int choice = menu_4();
+            if (choice == 6) break;
+
+            if (choice == 1){
+                string name = read_line("villager name: ");
+                int frienship = read_int("friendship level (0-10): ");
+                string species = read_line("species: ");
+                string catchphrase = read_line("catchphrase: ");
+            if (add_villager(db,name,frienship,species,catchphrase))
+                cout << name << "added. \n";
+            else
+                cout << "Could not add. \n";
+                cout << "villager details:\n";
+                print_all(db);}
+        
+            else if (choice == 2){
+                string name = read_line("villager name: ");
+                if (delete_villager(db,name))
+                    cout << name << "deleted. \n";
+                else
+                    cout << "villager not found. \n";
+                    cout << "villager details:\n";
+                    print_all(db);}
+                
+            else if (choice == 3){
+                string name = read_line("villager name: ");
+                if (inc_friend(db,name))
+                    cout << name << "friendship increased. \n";
+                else
+                    cout << "villager not found. \n";
+                    cout << "villager details:\n";
+                    print_all(db);}
+                
+            else if (choice == 4){
+                string name = read_line("villager name: ");
+                if (dec_friend(db,name))
+                    cout << name << "friendship decreased. \n";
+                else
+                    cout << "villager not found. \n";
+                    cout << "villager details:\n";
+                    print_all(db);}
+                
+            else if (choice == 5){
+                string name = read_line("villager name: ");
+                if (!search_villager(db,name))
+                    cout << "villager not found. \n";
+                    cout << "villager details:\n";
+                    print_all(db);}
+                else
+                    cout << "Please enter 1-6. \n";
+            }
+        
+            
         }
-    }
+        
     
+    }
+    return 0;
 }
